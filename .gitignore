@@ -1,0 +1,11 @@
+node_modules
+.DS_Store
+dist
+*.local
+src/directory-parser2.js
+
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
