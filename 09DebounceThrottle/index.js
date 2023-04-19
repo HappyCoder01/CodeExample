@@ -6,8 +6,8 @@ function debounce(fn, delay) {
     let timer = null;
     return function () {
         clearTimeout(timer);
-        timer = setTimeout(() => {
-            fn.apply(this, arguments);
+        timer = setTimeout((...args) => {
+            fn.apply(this, args);
         }, delay);
     }
 }
@@ -21,8 +21,8 @@ function throttle(fn, delay) {
     let flag = true;
     return function () {
         if (flag) {
-            setTimeout(() => {
-                fn.apply(this, arguments);
+            setTimeout((...args) => {
+                fn.apply(this, args);
                 flag = true;
             }, delay);
             flag = false;
