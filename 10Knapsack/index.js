@@ -2,36 +2,36 @@
 * 备忘录方式
 * */
 
-let maxWeight = Number.MIN_SAFE_INTEGER;
-let map = [];
+function knapsack(items, weight) {
+    // map用于备忘录，减少重复计算。核心是第i个商品，当前curWeight重量是否计算过。数组记得length+1
+    let map = new Array(items.length + 1).fill(1).map(() => new Array(weight).fill(false));
+    let maxWeight = -1;
 
-function knapsack(items, i, currWeight, weight) {
-    // 初始化备忘录
-    if (i === 0) {
-        map = [];
-        for (let j = 0; j <= items.length; j++) {
-            map.push([]);
+    function calc(i, curWeight) {
+        // 所有物品装入情况或者已经装满情况下退出
+        if (i === items.length || curWeight === weight) {
+            if (curWeight > maxWeight) {//更新最大重量
+                maxWeight = curWeight;
+            }
+            return;
         }
-    }
-    if (i === items.length || currWeight === weight) {
-        if (currWeight > maxWeight) {
-            maxWeight = currWeight;
+
+        // 选择不装入
+        if (!map[i + 1][curWeight]) {
+            map[i + 1][curWeight] = true;
+            calc(i + 1, curWeight);
         }
-        return;
-    }
-    if (!map[i + 1][currWeight]) {
-        map[i + 1][currWeight] = true;
-        knapsack(items, i + 1, currWeight, weight);
+
+        // 选择装入
+        let temp = curWeight + items[i];
+        if (temp <= weight && !map[i + 1][temp]) {
+            map[i + 1][temp] = true;
+            calc(i + 1, temp);
+        }
     }
 
-    if (items[i + 1] + currWeight <= weight) {
-        if (!map[i + 1][currWeight + items[i + 1]]) {
-            map[i + 1][currWeight + items[i + 1]] = true;
-            knapsack(items, i + 1, currWeight + items[i + 1], weight);
-        }
-    }
+    calc(0, 0);
+    return maxWeight;
 }
 
-knapsack([2, 2, 4, 6, 3], 0, 0, 9);
-
-console.log(maxWeight);
+console.log(knapsack([2, 2, 4, 6, 3], 9));
