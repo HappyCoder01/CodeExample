@@ -5,7 +5,7 @@
 function knapsack(items, weight) {
     // map用于备忘录，减少重复计算。核心是第i个商品，当前curWeight重量是否计算过。数组记得length+1
     let map = new Array(items.length + 1).fill(1).map(() => new Array(weight).fill(false));
-    let maxWeight = -1;
+    let maxWeight = 0;
 
     function calc(i, curWeight) {
         // 所有物品装入情况或者已经装满情况下退出
