@@ -52,4 +52,5 @@ LazyMan.prototype.pushTask = function (type, text, time) {
 
 // new LazyMan(1).eat(2);
 // new LazyMan(1).sleep(1000).eat(2);
-new LazyMan(1).sleepFirst(1000).eat(2);
+// new LazyMan(1).sleepFirst(1000).eat(2);
+new LazyMan(1).sleepFirst(1000).eat(2).sleep(2000).eat(3);
